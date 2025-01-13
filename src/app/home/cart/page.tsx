@@ -19,6 +19,7 @@ const CartPage = () => {
   // Total price (subtotal + tax + shipping)
   const totalPrice = subtotal + tax + shipping;
 
+  // Handle removing item from cart
   const handleRemoveFromCart = (itemId: string) => {
     dispatch(removeFromCart(itemId));
   };
@@ -35,7 +36,7 @@ const CartPage = () => {
             ) : (
               cartItems.map((item) => (
                 <div
-                  key={item.id}
+                  key={item.idMeal} // Use `idMeal` here for unique key
                   className="bg-white shadow-md rounded-lg p-4 flex items-center justify-between"
                 >
                   {/* Item details */}
@@ -58,7 +59,7 @@ const CartPage = () => {
 
                   {/* Remove Button */}
                   <Button
-                    onClick={() => handleRemoveFromCart(item.id)}
+                    onClick={() => handleRemoveFromCart(item.idMeal)} // Use `idMeal` to remove
                     className="bg-red-600 text-white text-sm px-4 py-2"
                   >
                     Remove

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { RootState } from "@/app/store/store";
 import { Button } from "@/components/ui/button";
 import { addToCart } from "@/app/features/cartmanager/cartManagerSlice"; // Redux action to add item to cart
-import {Toaster,toast} from "react-hot-toast"
+import { Toaster, toast } from "react-hot-toast";
 
 const CardDetails = () => {
   const card = useSelector((state: RootState) => state.selectedCard.card);
@@ -31,12 +31,13 @@ const CardDetails = () => {
       const mealData = {
         strMeal: card?.strMeal,
         strMealThumb: card?.strMealThumb,
-        idMeal: card?.idMeal,
+        idMeal: card?.idMeal,  // Use idMeal from API response
         price: fixedPrice,
         quantity: quantity, // Include quantity in the data
         totalPrice: fixedPrice * quantity, // Total price based on fixed price and quantity
       };
-      toast.success("item added successfully");
+      toast.success("Item added successfully");
+
       // Update the Redux store with the meal data
       dispatch(addToCart(mealData)); // Dispatch the meal data to Redux store
     } catch (error) {
@@ -85,7 +86,7 @@ const CardDetails = () => {
         <Button onClick={handleAddToCart} className="mt-4">
           Add to Cart
         </Button>
-        <Toaster/>
+        <Toaster />
         {/* Show Total Price */}
         <p className="mt-4 text-xl font-semibold">Total Price: ₹{totalPrice}</p>
       </div>

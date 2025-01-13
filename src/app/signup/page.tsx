@@ -8,34 +8,34 @@ import { Toaster, toast } from "react-hot-toast";
 const SignUpPage = () => {
   const router = useRouter();
 
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [user, setUser] = useState({
-    username: "",
     password: "",
+    username: "",
   });
 
   const [loading, setLoading] = useState(false);
 
   const onSignUp = async () => {
     try {
-      setLoading(true);
-      const response = await axios.post("/api/users/signup", user);
+      setLoading(true)
+      const response = await axios.post("/api/users/signup", user)
 
-      // Check if signup was successful
       if (response.data.success) {
+        router.push("/login");
         toast.success("Signup successful!");
-        router.push("/login"); // Redirect to login page after successful signup
       } else {
-        toast.error(response.data.error || "Signup failed");
+        toast.error(response.data.error || "Signup Failed!");
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        // Axios error response
-        toast.error(error.response?.data?.error || "Something went wrong!");
+        console.log("Signup Failed:", error.response?.data?.message || error.message);
+        toast.error(error.response?.data?.message || "Signup Failed!");
       } else if (error instanceof Error) {
-        // Generic error handling
+        console.log("Signup Failed:", error.message);
         toast.error(error.message);
       } else {
+        console.log("Signup Failed:", error);
         toast.error("An unknown error occurred.");
       }
     } finally {
@@ -44,8 +44,7 @@ const SignUpPage = () => {
   };
 
   useEffect(() => {
-    // Enable button only when both username and password are entered
-    if (user?.username?.length > 0 && user?.password?.length > 0) {
+    if (user?.password?.length > 0 && user?.username?.length > 0) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
@@ -76,7 +75,6 @@ const SignUpPage = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-
           <div>
             <label
               htmlFor="password"
@@ -113,10 +111,10 @@ const SignUpPage = () => {
             >
               Login
             </Link>
-            <Toaster />
           </p>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
