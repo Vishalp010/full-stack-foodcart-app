@@ -7,12 +7,12 @@ export interface IUser extends Document {
 }
 
 // Menu Interface
-export interface IMenu extends Document {
-  name: string;
-  category: string;
-  price: number;
-  availability: boolean;
-}
+// export interface IMenu extends Document {
+//   name: string;
+//   category: string;
+//   price: number;
+//   availability: boolean;
+// }
 
 // Order Interface
 export interface IOrder extends Document {
@@ -42,26 +42,26 @@ const UserSchema = new Schema<IUser>({
 });
 
 // Menu Schema
-const MenuSchema = new Schema<IMenu>({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  category: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-    min: 0,
-  },
-  availability: {
-    type: Boolean,
-    default: true,
-  },
-});
+// const MenuSchema = new Schema<IMenu>({
+//   name: {
+//     type: String,
+//     required: true,
+//     trim: true,
+//   },
+//   category: {
+//     type: String,
+//     required: true,
+//   },
+//   price: {
+//     type: Number,
+//     required: true,
+//     min: 0,
+//   },
+//   availability: {
+//     type: Boolean,
+//     default: true,
+//   },
+// });
 
 // Order Schema
 const OrderSchema = new Schema<IOrder>({
@@ -102,5 +102,5 @@ const OrderSchema = new Schema<IOrder>({
 
 // Models
 export const UserModel = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
-export const MenuModel = mongoose.models.Menu || mongoose.model<IMenu>("Menu", MenuSchema);
+// export const MenuModel = mongoose.models.Menu || mongoose.model<IMenu>("Menu", MenuSchema);
 export const OrderModel = mongoose.models.Order || mongoose.model<IOrder>("Order", OrderSchema);
